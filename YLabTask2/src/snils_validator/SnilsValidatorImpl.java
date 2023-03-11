@@ -5,6 +5,10 @@ public class SnilsValidatorImpl implements SnilsValidator {
 
     @Override
     public boolean validate(String snils) {
+        if (!validateStringSnils(snils)) {
+            return false;
+        }
+
         int sum = 0;
         for (int i = 0; i < 9; i++) {
             sum += indexes[i] * (snils.charAt(i) - '0');
@@ -26,7 +30,7 @@ public class SnilsValidatorImpl implements SnilsValidator {
 
         int lastDigits = (snils.charAt(9) - '0') * 10 + (snils.charAt(10) - '0');
 
-        return lastDigits == control && validateStringSnils(snils);
+        return lastDigits == control;
     }
 
     private boolean validateStringSnils (String snils) {
