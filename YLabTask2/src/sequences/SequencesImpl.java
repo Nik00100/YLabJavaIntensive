@@ -18,13 +18,8 @@ public class SequencesImpl implements Sequences {
 
     @Override
     public void c(int n) {
-        System.out.println(1);
-        int prevStep = 3;
-        int prevNum = 1;
         for (int i = 1; i < n; i++) {
-            System.out.println(prevStep + prevNum);
-            prevNum += prevStep;
-            prevStep += 2;
+            System.out.println(i * i);
         }
     }
 
@@ -53,25 +48,26 @@ public class SequencesImpl implements Sequences {
 
     @Override
     public void g(int n) {
-        System.out.println(1);
-        int prevStep = 3;
-        int prevNum = 1;
         for (int i = 1; i < n; i++) {
+            int num = i * i;
             if (i % 2 == 0) {
-                System.out.println(prevStep + prevNum);
+                System.out.println((-1) * num);
             } else {
-                System.out.println((-1) * (prevStep + prevNum));
+                System.out.println(num);
             }
-            prevNum += prevStep;
-            prevStep += 2;
         }
     }
 
     @Override
     public void h(int n) {
+        int prev = 1;
         for (int i = 1; i <= n; i++) {
-            System.out.println(i);
-            System.out.println(0);
+            if (i % 2 == 0) {
+                System.out.println(0);
+            } else {
+                System.out.println(prev);
+                prev++;
+            }
         }
     }
 

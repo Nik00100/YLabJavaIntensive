@@ -5,6 +5,31 @@ public class SnilsValidatorImpl implements SnilsValidator {
 
     @Override
     public boolean validate(String snils) {
+        int sum = 0;
+        for (int i = 0; i < 9; i++) {
+            sum += indexes[i] * (snils.charAt(i) - '0');
+        }
+
+        int control;
+        if (sum < 100) {
+            control = sum;
+        } else if (sum == 100) {
+            control = 0;
+        } else {
+            int remainder = sum % 101;
+            if (remainder == 100) {
+                control = 0;
+            } else {
+                control = remainder;
+            }
+        }
+
+        int lastDigits = (snils.charAt(9) - '0') * 10 + (snils.charAt(10) - '0');
+
+        return lastDigits == control && validateStringSnils(snils);
+    }
+
+    private boolean validateStringSnils (String snils) {
         boolean answer = true;
 
         if (snils == null || snils.length() != 11) {
@@ -17,31 +42,6 @@ public class SnilsValidatorImpl implements SnilsValidator {
                 break;
             }
         }
-
-        if (answer) {
-            long sum = 0;
-            for (int i = 0; i < 9; i++) {
-                sum += indexes[i] * (snils.charAt(i) - '0');
-            }
-
-            long control;
-            if (sum < 100) {
-                control = sum;
-            } else if (sum == 100) {
-                control = 0;
-            } else {
-                long remainder = sum % 101;
-                if (remainder == 100) {
-                    control = 0;
-                } else {
-                    control = remainder;
-                }
-            }
-
-            long lastDigits = (snils.charAt(9) - '0') * 10 + (snils.charAt(10) - '0');
-            answer = lastDigits == control;
-        }
-
         return answer;
     }
 }
