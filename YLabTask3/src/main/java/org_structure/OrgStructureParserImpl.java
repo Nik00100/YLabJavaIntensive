@@ -61,6 +61,7 @@ public class OrgStructureParserImpl implements OrgStructureParser {
             if (subordinaries.containsKey(employee.getId())) {
                 for (Employee emp : subordinaries.get(employee.getId())) {
                     employee.getSubordinate().add(emp);
+                    emp.setBoss(employee);
                 }
             }
         }
