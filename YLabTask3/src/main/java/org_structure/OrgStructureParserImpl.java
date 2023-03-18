@@ -32,7 +32,6 @@ public class OrgStructureParserImpl implements OrgStructureParser {
 
             List<Employee> employees = (List<Employee>) csvToBean.parse();
             Employee boss = getBoss(employees);
-            //setSubordinatesToEmployee(employees, boss, 1);
             fillSubordinaries(employees, boss);
             return boss;
 
@@ -47,13 +46,7 @@ public class OrgStructureParserImpl implements OrgStructureParser {
         return boss;
     }
 
-    private void setSubordinatesToEmployee(List<Employee> employees, Employee employee, long boss_id) {
-        for (Employee emp : employees) {
-            if (emp.getBossId() != null && emp.getBossId().longValue() == boss_id)
-                employee.getSubordinate().add(emp);
-        }
-    }
-
+    // метод заполняет подчиненными непосредственных руководителей
     private void fillSubordinaries(List<Employee> employees, Employee boss) {
         for (Employee employee : employees) {
             if (!employee.equals(boss)) {
@@ -71,7 +64,15 @@ public class OrgStructureParserImpl implements OrgStructureParser {
                 }
             }
         }
+    }
 
+    // Дополнительный метод - определяет из всего списка сотрудников, подчиненных
+    // непосредственного руководителя с индексом boss_id
+    private void setSubordinatesToEmployee(List<Employee> employees, Employee employee, long boss_id) {
+        for (Employee emp : employees) {
+            if (emp.getBossId() != null && emp.getBossId().longValue() == boss_id)
+                employee.getSubordinate().add(emp);
+        }
     }
 
 }
