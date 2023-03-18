@@ -76,7 +76,7 @@ public class Sorter {
         }
     }
 
-    private static class ChunkReader implements Comparable<ChunkReader> {
+    private class ChunkReader implements Comparable<ChunkReader> {
         private final BufferedReader reader;
         private String currentLine;
 
