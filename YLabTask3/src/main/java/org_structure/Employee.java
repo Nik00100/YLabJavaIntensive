@@ -61,7 +61,6 @@ public class Employee {
                 ", bossId=" + bossId +
                 ", name='" + name + '\'' +
                 ", position='" + position + '\'' +
-                ", boss=" + boss +
                 ", subordinate=" + subordinate +
                 '}';
     }
@@ -71,11 +70,11 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) && Objects.equals(bossId, employee.bossId) && Objects.equals(name, employee.name) && Objects.equals(position, employee.position) && Objects.equals(boss, employee.boss) && Objects.equals(subordinate, employee.subordinate);
+        return Objects.equals(id, employee.id) && Objects.equals(bossId, employee.bossId) && Objects.equals(name, employee.name) && Objects.equals(position, employee.position) &&  Objects.equals(subordinate, employee.subordinate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bossId, name, position, boss, subordinate);
+        return Objects.hash(id, bossId, name, position, subordinate);
     }
 }
