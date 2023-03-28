@@ -117,7 +117,7 @@ public class PersonApiImpl implements PersonApi {
             message = mapper.writeValueAsString(person);
             return message;
         } catch (JsonProcessingException e) {
-            System.out.println("Ошибка при сериализация объекта в JSON");
+            System.out.println("Ошибка при сериализации объекта в JSON");
             return null;
         }
     }
