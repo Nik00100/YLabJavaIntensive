@@ -45,7 +45,6 @@ public class PersonApiImpl implements PersonApi {
         // Создаем объект класса Person
         Person person = new Person(personId, null, null, null);
         String message = convertToJson(person);
-
         // Создаем сообщение-команду на удаление персоны
         sendMessageToQueue("DELETE" + message);
     }
@@ -55,7 +54,6 @@ public class PersonApiImpl implements PersonApi {
         // Создаем объект класса Person
         Person person = new Person(personId, firstName, lastName, middleName);
         String message = convertToJson(person);
-
         // Создаем сообщение-команду на сохранение персоны
         sendMessageToQueue("SAVE" + message);
     }
@@ -99,19 +97,12 @@ public class PersonApiImpl implements PersonApi {
     }
 
     public void sendMessageToQueue(String message) {
-        try {
-            // Создаем соединение с RabbitMQ
-            com.rabbitmq.client.Connection connection = connectionFactory.newConnection();
-            Channel channel = connection.createChannel();
-
+        // Создаем соединение с RabbitMQ
+        try (com.rabbitmq.client.Connection connection = connectionFactory.newConnection();
+             Channel channel = connection.createChannel();){
             //Публикуем сообщение-команду в очередь команд
             channel.basicPublish("", queryQueue, null, message.getBytes());
-
             System.out.println("Отправлено сообщение: " + message);
-
-            // Закрываем соединение с RabbitMQ
-            channel.close();
-            connection.close();
         } catch (Exception e) {
             System.out.println("Ошибка при отправке сообщения в брокер сообщений");;
         }
@@ -126,16 +117,6 @@ public class PersonApiImpl implements PersonApi {
             return message;
         } catch (JsonProcessingException e) {
             System.out.println("Ошибка при сериализации объекта в JSON");
-            return null;
-        }
-    }
-
-    private static Person fromJson(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(json, Person.class);
-        } catch (JsonProcessingException e) {
-            System.out.println("Ошибка при десериализации объекта из JSON");
             return null;
         }
     }

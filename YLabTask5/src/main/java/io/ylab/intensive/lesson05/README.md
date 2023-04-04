@@ -42,5 +42,10 @@ public interface SQLQueryBuilder {
 9. Для сборки проекта необходимо использовать Maven 
 10. DataSource должен создаваться со следующими параметрами подключения 
 ```
-PGSimpleDataSource dataSource = new PGSimpleDataSource(); dataSource.setServerName("localhost"); dataSource.setPortNumber(5432); dataSource.setDatabaseName("postgres"); dataSource.setUser("postgres"); dataSource.setPassword("postgres");
+PGSimpleDataSource dataSource = new PGSimpleDataSource(); 
+dataSource.setServerName("localhost"); 
+dataSource.setPortNumber(5432); 
+dataSource.setDatabaseName("postgres"); 
+dataSource.setUser("postgres"); 
+dataSource.setPassword("postgres");
 ```

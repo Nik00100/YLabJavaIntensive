@@ -17,14 +17,14 @@ public class TableInitializer {
     private String badWordsFile;
 
     private DataSource dataSource;
+
     @Autowired
     public TableInitializer(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     public void initialize() {
-        try {
-            Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()) {
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet tables = metaData.getTables(null, null, tableName, null);
 
@@ -35,7 +35,7 @@ public class TableInitializer {
                 loadBadWords(connection);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Ошибка при обращении к базе данных");
         }
     }
 
@@ -47,6 +47,8 @@ public class TableInitializer {
                             "word VARCHAR(50) NOT NULL" +
                             ")"
             );
+        } catch (SQLException e) {
+            System.out.println("Ошибка при обращении к базе данных");
         }
     }
 
@@ -65,7 +67,7 @@ public class TableInitializer {
                 }
             }
         } catch (IOException | SQLException e) {
-            e.printStackTrace();
+            System.out.println("Ошибка при обращении к базе данных");
         }
     }
 
